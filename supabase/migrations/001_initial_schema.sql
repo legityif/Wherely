@@ -1,7 +1,4 @@
--- ─── Enable UUID extension ────────────────────────────────────────────────────
-create extension if not exists "uuid-ossp";
-
--- ─── profiles ─────────────────────────────────────────────────────────────────
+-- ─── profiles
 -- Extends Supabase auth.users (created automatically on sign-up / anon sign-in)
 create table if not exists public.profiles (
   id              uuid primary key references auth.users(id) on delete cascade,
@@ -62,7 +59,7 @@ create policy "Service role can manage places"
 -- ─── daily_picks ──────────────────────────────────────────────────────────────
 -- One place per user per day
 create table if not exists public.daily_picks (
-  id         uuid primary key default uuid_generate_v4(),
+  id         uuid primary key default gen_random_uuid(),
   user_id    uuid not null references public.profiles(id) on delete cascade,
   place_id   text not null references public.places(id),
   date       date not null default current_date,
@@ -77,10 +74,13 @@ create policy "Users can read own daily picks"
 
 -- ─── interactions ─────────────────────────────────────────────────────────────
 -- User reactions: liked | skipped | saved
-create type if not exists interaction_action as enum ('liked', 'skipped', 'saved');
+do $$ begin
+  create type interaction_action as enum ('liked', 'skipped', 'saved');
+exception when duplicate_object then null;
+end $$;
 
 create table if not exists public.interactions (
-  id         uuid primary key default uuid_generate_v4(),
+  id         uuid primary key default gen_random_uuid(),
   user_id    uuid not null references public.profiles(id) on delete cascade,
   place_id   text not null references public.places(id),
   action     interaction_action not null,
