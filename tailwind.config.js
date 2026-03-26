@@ -1,0 +1,50 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        // Wherely brand palette (from Stitch design)
+        primary: '#506359',
+        'primary-dim': '#44564d',
+        'primary-container': '#d3e7db',
+        'on-primary': '#e8fdf0',
+        'on-primary-container': '#43564d',
+        secondary: '#5f6057',
+        'secondary-container': '#e4e3d8',
+        'on-secondary': '#fbf9ee',
+        background: '#faf9f5',
+        surface: '#faf9f5',
+        'surface-container-low': '#f4f4ef',
+        'surface-container': '#edeee8',
+        'surface-container-high': '#e7e9e2',
+        'surface-container-highest': '#e0e4db',
+        'surface-bright': '#faf9f5',
+        'on-surface': '#2f342e',
+        'on-surface-variant': '#5c605a',
+        'outline-variant': '#afb3ac',
+        outline: '#787c75',
+        tertiary: '#566445',
+        'tertiary-container': '#e6f7cf',
+        error: '#9f403d',
+        'error-container': '#fe8983',
+      },
+      fontFamily: {
+        headline: ['NotoSerif-Regular'],
+        body: ['Manrope-Regular'],
+        label: ['Manrope-SemiBold'],
+      },
+      borderRadius: {
+        DEFAULT: '4px',
+        lg: '8px',
+        xl: '12px',
+        '2xl': '16px',
+        '3xl': '24px',
+        '4xl': '40px',
+        full: '9999px',
+      },
+    },
+  },
+  plugins: [],
+};
