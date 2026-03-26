@@ -1,12 +1,15 @@
-import { View, Text, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useSavedPlaces } from '@/hooks/useSavedPlaces';
 import SavedPlaceRow from '@/components/SavedPlaceRow';
 
 export default function SavedScreen() {
   const { savedPlaces, loading } = useSavedPlaces();
+  const tabBarHeight = useBottomTabBarHeight();
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       <View className="px-6 pt-4 pb-3">
         <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
           Your Collection
@@ -35,7 +38,7 @@ export default function SavedScreen() {
           data={savedPlaces}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <SavedPlaceRow place={item} />}
-          contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 120, paddingTop: 8 }}
+          contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: tabBarHeight + 16, paddingTop: 8 }}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={() => <View className="h-3" />}
         />

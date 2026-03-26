@@ -2,8 +2,9 @@ import {
   View,
   Text,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useDailyPlace } from '@/hooks/useDailyPlace';
 import { useStreak } from '@/hooks/useStreak';
 import PlaceCard from '@/components/PlaceCard';
@@ -13,6 +14,7 @@ import StreakBadge from '@/components/StreakBadge';
 export default function HomeScreen() {
   const { place, loading, interact } = useDailyPlace();
   const { streak } = useStreak();
+  const tabBarHeight = useBottomTabBarHeight();
 
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -21,7 +23,7 @@ export default function HomeScreen() {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       {/* Header */}
       <View className="flex-row items-center justify-between px-6 py-4">
         <StreakBadge streak={streak} />
@@ -33,7 +35,7 @@ export default function HomeScreen() {
 
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: tabBarHeight + 16 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Date */}

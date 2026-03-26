@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSavedPlaces } from '@/hooks/useSavedPlaces';
@@ -9,6 +10,7 @@ export default function PlaceDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { savedPlaces } = useSavedPlaces();
+  const insets = useSafeAreaInsets();
 
   const place = savedPlaces.find((p) => p.id === id);
 
@@ -25,7 +27,8 @@ export default function PlaceDetailScreen() {
       {/* Back button */}
       <TouchableOpacity
         onPress={() => router.back()}
-        className="absolute top-14 left-5 z-10 w-10 h-10 rounded-full bg-white/80 items-center justify-center shadow"
+        style={{ top: insets.top + 12 }}
+        className="absolute left-5 z-10 w-10 h-10 rounded-full bg-white/80 items-center justify-center shadow"
       >
         <Ionicons name="chevron-back" size={20} color="#506359" />
       </TouchableOpacity>
