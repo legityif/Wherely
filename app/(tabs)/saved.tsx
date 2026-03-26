@@ -1,4 +1,5 @@
 import { View, Text, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useSavedPlaces } from '@/hooks/useSavedPlaces';
@@ -11,10 +12,10 @@ export default function SavedScreen() {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       <View className="px-6 pt-4 pb-3">
-        <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+        <Text className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">
           Your Collection
         </Text>
-        <Text className="text-2xl text-on-surface" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>
+        <Text className="text-2xl text-on-surface" style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}>
           Saved Places
         </Text>
       </View>
@@ -25,8 +26,8 @@ export default function SavedScreen() {
         </View>
       ) : savedPlaces.length === 0 ? (
         <View className="flex-1 items-center justify-center px-8">
-          <Text className="text-4xl mb-4">⭐</Text>
-          <Text className="text-on-surface text-center text-lg" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>
+          <Ionicons name="star" size={48} color="#FACC15" style={{ marginBottom: 16 }} />
+          <Text className="text-on-surface text-center text-lg" style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}>
             Nothing saved yet
           </Text>
           <Text className="text-on-surface-variant text-center mt-2 text-sm">

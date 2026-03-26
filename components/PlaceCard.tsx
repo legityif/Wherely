@@ -1,4 +1,5 @@
 import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Place } from '@/types';
 
 const { width } = Dimensions.get('window');
@@ -14,8 +15,16 @@ export default function PlaceCard({ place }: Props) {
 
   return (
     <View
-      style={{ borderRadius: 40, overflow: 'hidden', backgroundColor: '#edeee8' }}
-      className="shadow-lg"
+      style={{
+        borderRadius: 40,
+        overflow: 'hidden',
+        backgroundColor: '#edeee8',
+        shadowColor: '#2f342e',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.06,
+        shadowRadius: 12,
+        elevation: 4,
+      }}
     >
       {/* Image Carousel */}
       <ScrollView
@@ -32,14 +41,14 @@ export default function PlaceCard({ place }: Props) {
               resizeMode="cover"
             />
             {/* Gradient overlay */}
-            <View
+            <LinearGradient
+              colors={['transparent', 'rgba(47,52,46,0.82)']}
               style={{
                 position: 'absolute',
                 bottom: 0,
                 left: 0,
                 right: 0,
-                height: CARD_HEIGHT * 0.5,
-                backgroundColor: 'transparent',
+                height: CARD_HEIGHT * 0.65,
               }}
             />
           </View>
@@ -66,7 +75,7 @@ export default function PlaceCard({ place }: Props) {
       <View className="absolute bottom-0 left-0 right-0 p-7">
         <Text
           className="text-white text-4xl leading-tight mb-1"
-          style={{ fontFamily: 'serif', fontStyle: 'italic' }}
+          style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}
         >
           {place.name}
         </Text>

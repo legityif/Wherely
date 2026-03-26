@@ -46,12 +46,12 @@ export default function PlaceDetailScreen() {
 
         {place.why_today && (
           <View className="mx-4 mt-6 p-6 bg-surface-container-low rounded-[2rem]">
-            <Text className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
+          <Text className="text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant mb-3">
               Why it was suggested
             </Text>
             <Text
               className="text-xl text-on-surface leading-relaxed"
-              style={{ fontFamily: 'serif', fontStyle: 'italic' }}
+            style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}
             >
               "{place.why_today}"
             </Text>

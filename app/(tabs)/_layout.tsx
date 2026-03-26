@@ -1,6 +1,8 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BlurView } from 'expo-blur';
+import { StyleSheet, Platform, View } from 'react-native';
 
 type TabIconProps = {
   name: React.ComponentProps<typeof Ionicons>['name'];
@@ -23,9 +25,21 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#506359',
         tabBarInactiveTintColor: 'rgba(47,52,46,0.35)',
         tabBarShowLabel: false,
+        tabBarBackground: () =>
+          Platform.OS === 'ios' ? (
+            <BlurView
+              intensity={60}
+              tint="light"
+              style={[StyleSheet.absoluteFill, { borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: 'hidden' }]}
+            />
+          ) : (
+            <View
+              style={[StyleSheet.absoluteFill, { borderTopLeftRadius: 24, borderTopRightRadius: 24, overflow: 'hidden', backgroundColor: 'rgba(250,249,245,0.97)' }]}
+            />
+          ),
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: 'rgba(255,255,255,0.85)',
+          backgroundColor: 'transparent',
           borderTopWidth: 0,
           elevation: 0,
           shadowColor: '#2f342e',
