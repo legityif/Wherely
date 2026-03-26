@@ -27,6 +27,7 @@ module.exports = {
         outline: '#787c75',
         tertiary: '#566445',
         'tertiary-container': '#e6f7cf',
+        'primary-fixed-dim': '#8fbfa8',
         error: '#9f403d',
         'error-container': '#fe8983',
       },

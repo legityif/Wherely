@@ -26,10 +26,10 @@ export default function MapScreen() {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       <View className="px-6 pt-4 pb-3">
-        <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
+        <Text className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">
           Nearby
         </Text>
-        <Text className="text-2xl text-on-surface" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>
+        <Text className="text-2xl text-on-surface" style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}>
           Explore
         </Text>
       </View>

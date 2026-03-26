@@ -27,7 +27,7 @@ export default function HomeScreen() {
       {/* Header */}
       <View className="flex-row items-center justify-between px-6 py-4">
         <StreakBadge streak={streak} />
-        <Text className="text-2xl italic text-primary" style={{ fontFamily: 'serif' }}>
+        <Text className="text-2xl italic text-primary" style={{ fontFamily: 'NotoSerif-Regular' }}>
           Wherely
         </Text>
         <View className="w-8" />
@@ -40,10 +40,10 @@ export default function HomeScreen() {
       >
         {/* Date */}
         <View className="items-center mb-6 px-6">
-          <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-1">
+          <Text className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant mb-1">
             Today's Suggestion
           </Text>
-          <Text className="text-3xl text-on-surface" style={{ fontFamily: 'serif', fontStyle: 'italic' }}>
+          <Text className="text-3xl text-on-surface" style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}>
             {today}
           </Text>
         </View>
@@ -80,13 +80,13 @@ export default function HomeScreen() {
               <View className="w-7 h-7 rounded-full bg-primary/10 items-center justify-center">
                 <Text>✨</Text>
               </View>
-              <Text className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant">
+              <Text className="text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant">
                 Why today?
               </Text>
             </View>
             <Text
               className="text-xl text-on-surface leading-relaxed"
-              style={{ fontFamily: 'serif', fontStyle: 'italic' }}
+            style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}
             >
               "{place.why_today}"
             </Text>
