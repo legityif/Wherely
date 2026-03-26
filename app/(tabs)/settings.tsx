@@ -1,11 +1,24 @@
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useUserStore } from '@/store/useUserStore';
+import { supabase } from '@/lib/supabase';
 
 const RADIUS_OPTIONS = [2, 5, 10] as const;
 
 export default function SettingsScreen() {
   const { radiusKm, setRadiusKm, resetPreferences } = useUserStore();
+
+  const handleSignOut = () => {
+    Alert.alert('Sign out', 'Are you sure you want to sign out?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Sign Out',
+        style: 'destructive',
+        onPress: () => supabase.auth.signOut(),
+        // auth state change in _layout.tsx auto-redirects to /auth
+      },
+    ]);
+  };
 
   const handleReset = () => {
     Alert.alert(
@@ -77,6 +90,16 @@ export default function SettingsScreen() {
         >
           <Text className="text-sm font-bold text-error uppercase tracking-widest">
             Reset Preferences
+          </Text>
+        </TouchableOpacity>
+
+        {/* Sign Out */}
+        <TouchableOpacity
+          onPress={handleSignOut}
+          className="bg-surface-container rounded-3xl p-5 items-center mt-2"
+        >
+          <Text className="text-sm font-label text-on-surface-variant uppercase tracking-widest">
+            Sign Out
           </Text>
         </TouchableOpacity>
       </View>
