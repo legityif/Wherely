@@ -1,4 +1,5 @@
-import { View, Text, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useUserStore } from '@/store/useUserStore';
 
 const RADIUS_OPTIONS = [2, 5, 10] as const;
@@ -22,7 +23,7 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       <View className="px-6 pt-4 pb-6">
         <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
           Preferences

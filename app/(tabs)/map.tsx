@@ -1,4 +1,5 @@
-import { View, Text, SafeAreaView } from 'react-native';
+import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { useDailyPlace } from '@/hooks/useDailyPlace';
 import { useSavedPlaces } from '@/hooks/useSavedPlaces';
@@ -23,7 +24,7 @@ export default function MapScreen() {
       };
 
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView edges={['top', 'left', 'right']} className="flex-1 bg-background">
       <View className="px-6 pt-4 pb-3">
         <Text className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">
           Nearby
