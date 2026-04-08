@@ -1,86 +1,93 @@
-import { View, Text, TouchableOpacity, Linking, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Share } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Place } from '@/types';
 
 type Props = {
   place: Place;
   onLike: () => void;
   onSkip: () => void;
-  onSave: () => void;
+  onShare?: () => void;
+  isLiked?: boolean;
 };
 
 type ActionButtonProps = {
   icon: React.ComponentProps<typeof Ionicons>['name'];
   label: string;
   onPress: () => void;
-  variant?: 'default' | 'primary' | 'calm';
+  active?: boolean;
 };
 
-function ActionButton({ icon, label, onPress, variant = 'default' }: ActionButtonProps) {
-  const iconColor =
-    variant === 'primary' ? '#e8fdf0' : variant === 'calm' ? '#506359' : '#5c605a';
-  const labelColor =
-    variant === 'primary' ? 'text-on-primary' : variant === 'calm' ? 'text-primary' : 'text-on-surface-variant';
-
-  const inner = (
-    <>
-      <Ionicons name={icon} size={22} color={iconColor} />
-      <Text className={`text-[9px] font-label uppercase mt-2 tracking-wider ${labelColor}`}>
-        {label}
-      </Text>
-    </>
-  );
-
-  if (variant === 'primary') {
-    return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={{ flex: 1, aspectRatio: 1 }}>
-        <LinearGradient
-          colors={['#506359', '#44564d']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center', borderRadius: 24 }}
-        >
-          {inner}
-        </LinearGradient>
-      </TouchableOpacity>
-    );
-  }
-
+function ActionButton({ icon, label, onPress, active = false }: ActionButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      className={`flex-1 aspect-square items-center justify-center rounded-3xl ${
-        variant === 'calm' ? 'bg-primary-fixed-dim/20' : 'bg-surface-container'
-      }`}
+      className="flex-1 items-center"
+      style={{ gap: 8 }}
     >
-      {inner}
+      <View
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 28,
+          backgroundColor: active ? '#506359' : '#f4f4ef',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderWidth: active ? 0 : 1,
+          borderColor: 'rgba(175,179,172,0.25)',
+        }}
+      >
+        <Ionicons name={icon} size={22} color={active ? '#e8fdf0' : '#5c605a'} />
+      </View>
+      <Text
+        style={{
+          fontFamily: 'Manrope-SemiBold',
+          fontSize: 10,
+          color: '#5c605a',
+          letterSpacing: 1,
+          textTransform: 'uppercase',
+        }}
+      >
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 }
 
-export default function ActionBar({ place, onLike, onSkip, onSave }: Props) {
-  const openInMaps = () => {
-    const label = encodeURIComponent(place.name);
-    const url =
-      Platform.OS === 'ios'
-        ? `maps://?q=${label}&ll=${place.lat},${place.lng}`
-        : `geo:${place.lat},${place.lng}?q=${label}`;
-    Linking.openURL(url).catch(() => {
-      // Fallback to Google Maps web
-      Linking.openURL(
-        `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`
-      );
-    });
+export default function ActionBar({ place, onLike, onSkip, onShare, isLiked }: Props) {
+  const handleShare = () => {
+    if (onShare) {
+      onShare();
+      return;
+    }
+    Share.share({
+      message: `Check out ${place.name} on Wherely! https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`,
+    }).catch(() => {});
   };
 
   return (
-    <View className="flex-row gap-3 mt-4">
-      <ActionButton icon="thumbs-up-outline" label="Like" onPress={onLike} variant="calm" />
-      <ActionButton icon="close-outline" label="Skip" onPress={onSkip} />
-      <ActionButton icon="star-outline" label="Save" onPress={onSave} variant="calm" />
-      <ActionButton icon="map-outline" label="Maps" onPress={openInMaps} variant="primary" />
+    <View
+      className="mx-4 mt-4 rounded-3xl p-5"
+      style={{ backgroundColor: '#f4f4ef' }}
+    >
+      <View className="flex-row">
+        <ActionButton
+          icon={isLiked ? 'thumbs-up' : 'thumbs-up-outline'}
+          label={isLiked ? 'Liked' : 'Like'}
+          onPress={onLike}
+          active={isLiked}
+        />
+        <ActionButton
+          icon="close-outline"
+          label="Skip"
+          onPress={onSkip}
+        />
+        <ActionButton
+          icon="share-social-outline"
+          label="Share"
+          onPress={handleShare}
+        />
+      </View>
     </View>
   );
 }

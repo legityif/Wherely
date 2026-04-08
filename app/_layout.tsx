@@ -9,6 +9,7 @@ import { Manrope_400Regular, Manrope_600SemiBold } from '@expo-google-fonts/manr
 import { useEffect, useState } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { useUserStore } from '@/store/useUserStore';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -21,12 +22,19 @@ export default function RootLayout() {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   const router = useRouter();
   const segments = useSegments();
+  const { fetchProfile, updateStreak, clearProfile } = useUserStore();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) {
+        // Fetch profile and check streak on login/auth state restore
+        fetchProfile().then(updateStreak);
+      } else {
+        clearProfile();
+      }
     });
 
     return () => subscription.unsubscribe();

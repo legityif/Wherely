@@ -34,26 +34,42 @@ export default function PlaceDetailScreen() {
       </TouchableOpacity>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
-        <PlaceCard place={place} />
-        <View className="px-4 mt-4">
-          <ActionBar
-            onLike={() => {}}
-            onSkip={() => {}}
-            onSave={() => {}}
-            place={place}
-          />
+        <View className="px-4 pt-2">
+          <PlaceCard place={place} />
         </View>
 
+        <ActionBar
+          place={place}
+          onLike={() => {}}
+          onSkip={() => {}}
+        />
+
         {place.why_today && (
-          <View className="mx-4 mt-6 p-6 bg-surface-container-low rounded-[2rem]">
-          <Text className="text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant mb-3">
-              Why it was suggested
-            </Text>
+          <View className="mx-4 mt-5 p-6 bg-surface-container-low rounded-3xl">
+            <View className="flex-row items-center gap-2 mb-4">
+              <Ionicons name="sparkles" size={16} color="#506359" />
+              <Text
+                style={{
+                  fontFamily: 'Manrope-SemiBold',
+                  fontSize: 11,
+                  color: '#5c605a',
+                  letterSpacing: 2,
+                  textTransform: 'uppercase',
+                }}
+              >
+                Why it was suggested
+              </Text>
+            </View>
             <Text
-              className="text-xl text-on-surface leading-relaxed"
-            style={{ fontFamily: 'NotoSerif-Regular', fontStyle: 'italic' }}
+              className="text-on-surface"
+              style={{
+                fontFamily: 'NotoSerif-Regular',
+                fontStyle: 'italic',
+                fontSize: 20,
+                lineHeight: 30,
+              }}
             >
-              "{place.why_today}"
+              {place.why_today}
             </Text>
           </View>
         )}
