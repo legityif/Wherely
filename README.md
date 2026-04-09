@@ -77,13 +77,13 @@ supabase/
 ## Development Notes
 
 - The app currently uses **mock data** (The Willow Cafe) until the Edge Function is wired up.
-- To connect to real data: uncomment the `supabase.functions.invoke` call in `hooks/useDailyPlace.ts`.
+- To connect to real data: uncomment the `supabase.functions.invoke` call in `hooks/useDailyPlace.ts`. (done)
 - Map tab requires a real device or simulator with location access.
 
 ## V2 Roadmap
 
 - Mood filter (chill / social / productive)
-- Time-based suggestions
-- "Go with a friend" sharing
+- Time-based suggestions, season based, weather based suggestions
+- "Go with a friend" sharing, friend interactions on your daily drop
 - Push notifications
 - Collections (Date spots, Hidden gems, etc.)
